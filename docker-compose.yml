@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  starbound:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: starbound
+    ports:
+      - "21025:21025/udp"
+      - "28015:28015/udp"
+      - "28016:28016/udp"
+    volumes:
+      - starbound_data:/starbound
+    restart: unless-stopped
+    environment:
+      - STEAM_LOGIN=${STEAM_LOGIN:-FALSE}
+    stdin_open: true
+    tty: true
+
+volumes:
+  starbound_data:
+    driver: local
+
